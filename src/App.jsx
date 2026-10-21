@@ -78,7 +78,11 @@ export default function App() {
       />
       {/* <Hero score={score} /> */}
       <section className="content-grid">
-        <OriginMap origins={origins} onOriginSelect={handleOriginSelect} />
+        <OriginMap
+          origins={origins}
+          theme={theme}
+          onOriginSelect={handleOriginSelect}
+        />
         <CheckoutCard
           quantity={Math.max(cartQuantity, 1)}
           checkoutState={checkoutState}
