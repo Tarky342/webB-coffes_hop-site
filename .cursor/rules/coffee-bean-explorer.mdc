@@ -1,0 +1,19 @@
+---
+description: Shared project requirements for Coffee Bean Explorer
+alwaysApply: true
+---
+
+Follow `AGENTS.md` and `.github/copilot-instructions.md`.
+
+- Inspect the current stack and actual `originsg.json` before implementation.
+- Map location selection opens the associated coffee-bean detail modal and increments score once.
+- A configured threshold triggers a loading transition exactly once.
+- Loading variant follows the active `light` or `dark` theme.
+- The coffee-bean bag transitions into the cart.
+- Preserve data, accessibility, keyboard dialog behavior, and reduced-motion support.
+- Do not invent schema or coffee facts; run available checks and report actual results.
+
+- Frontend must use React JavaScript JSX (`.jsx`), not TypeScript/TSX.
+- Add a Stripe test-mode demo checkout using Stripe Checkout or Elements/Payment Element.
+- Keep secret keys server-side, validate prices server-side, and handle success/failure/cancel/retry safely.
+- Never mark an order paid based only on client-side state or a redirect.

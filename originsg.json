@@ -1,0 +1,1059 @@
+{
+  "ET": {
+    "id": "ET",
+    "name": "エチオピア",
+    "nameEn": "Ethiopia",
+    "continent": "アフリカ",
+    "region": "東アフリカ",
+    "overview": "アラビカ種の遺伝的多様性が豊かで、地域や精製方法による個性が大きい産地。",
+    "species": [
+      "アラビカ種"
+    ],
+    "growingConditions": {
+      "altitudeM": {
+        "min": null,
+        "max": null
+      },
+      "climate": "地域ごとに異なる高地の栽培環境",
+      "harvestSeason": "主に年末から翌年初め"
+    },
+    "varieties": [
+      {
+        "name": "エチオピア在来系統",
+        "note": "多様な在来系統が存在する"
+      },
+      {
+        "name": "74110・74112",
+        "note": "エチオピアで知られる選抜系統"
+      }
+    ],
+    "processingMethods": [
+      {
+        "id": "washed",
+        "name": "ウォッシュド",
+        "description": "果肉などを除去し、水を使って処理する方法",
+        "flavorTendency": [
+          "花のような香り",
+          "柑橘",
+          "紅茶"
+        ]
+      },
+      {
+        "id": "natural",
+        "name": "ナチュラル",
+        "description": "果実を付けたまま乾燥させる方法",
+        "flavorTendency": [
+          "ベリー",
+          "熟した果実",
+          "ワインを思わせる風味"
+        ]
+      }
+    ],
+    "flavorNotes": [
+      "花のような香り",
+      "柑橘系",
+      "ベリー系",
+      "紅茶を思わせる風味"
+    ],
+    "regions": [
+      {
+        "id": "yirgacheffe",
+        "name": "イルガチェフェ",
+        "altitudeM": {
+          "min": 1700,
+          "max": 2200
+        },
+        "flavorNotes": [
+          "ジャスミン",
+          "ベルガモット",
+          "レモン",
+          "紅茶"
+        ],
+        "processingMethods": [
+          "washed",
+          "natural"
+        ]
+      },
+      {
+        "id": "sidama",
+        "name": "シダマ",
+        "altitudeM": {
+          "min": 1500,
+          "max": 2300
+        },
+        "flavorNotes": [
+          "ベリー",
+          "柑橘",
+          "花のような香り"
+        ],
+        "processingMethods": [
+          "washed",
+          "natural"
+        ]
+      },
+      {
+        "id": "guji",
+        "name": "グジ",
+        "altitudeM": {
+          "min": 1800,
+          "max": 2400
+        },
+        "flavorNotes": [
+          "花のような香り",
+          "柑橘",
+          "ベリー"
+        ],
+        "processingMethods": [
+          "washed",
+          "natural"
+        ]
+      }
+    ],
+    "learningPoints": [
+      "在来系統の多様性",
+      "標高と栽培環境",
+      "ウォッシュドとナチュラルの違い"
+    ],
+    "sources": [
+      {
+        "title": "Coffee Bean Guide: Ethiopia",
+        "url": "https://beans.qualitylife.coffee/en/origin/ethiopia"
+      },
+      {
+        "title": "Ethiopian Coffee Exporters Association",
+        "url": "https://www.emaethiopia.com/coffee"
+      }
+    ],
+    "dataStatus": "参考資料に基づく学習用データ"
+  },
+  "BR": {
+    "id": "BR",
+    "name": "ブラジル",
+    "nameEn": "Brazil",
+    "continent": "南米",
+    "region": "南アメリカ",
+    "overview": "広い国土と多様な栽培環境を持ち、アラビカ種とカネフォラ種が生産される産地。",
+    "species": [
+      "アラビカ種",
+      "カネフォラ種（コニロンなど）"
+    ],
+    "growingConditions": {
+      "altitudeM": {
+        "min": null,
+        "max": null
+      },
+      "climate": "地域・標高によって異なる",
+      "harvestSeason": "主に年央から後半。地域や品種で異なる"
+    },
+    "varieties": [
+      {
+        "name": "ムンドノーボ",
+        "note": "ブラジルで栽培されるアラビカ種の品種"
+      },
+      {
+        "name": "カトゥアイ",
+        "note": "ブラジルで栽培されるアラビカ種の品種"
+      },
+      {
+        "name": "アララ",
+        "note": "ブラジルで知られるアラビカ種の品種"
+      }
+    ],
+    "processingMethods": [
+      {
+        "id": "natural",
+        "name": "ナチュラル",
+        "description": "果実を付けたまま乾燥させる方法",
+        "flavorTendency": [
+          "甘さ",
+          "ナッツ",
+          "チョコレート"
+        ]
+      },
+      {
+        "id": "pulped-natural",
+        "name": "パルプドナチュラル",
+        "description": "果肉を除去し、粘液質を残して乾燥させる方法",
+        "flavorTendency": [
+          "甘さ",
+          "なめらかな口当たり"
+        ]
+      },
+      {
+        "id": "washed",
+        "name": "ウォッシュド",
+        "description": "水を使って果肉や粘液質を除去する方法",
+        "flavorTendency": [
+          "すっきりした風味",
+          "酸味の明瞭さ"
+        ]
+      }
+    ],
+    "flavorNotes": [
+      "ナッツ",
+      "チョコレート",
+      "キャラメル",
+      "熟した果実"
+    ],
+    "regions": [
+      {
+        "id": "sul-de-minas",
+        "name": "スル・デ・ミナス",
+        "altitudeM": {
+          "min": 800,
+          "max": 1300
+        },
+        "flavorNotes": [
+          "ナッツ",
+          "チョコレート",
+          "甘さ"
+        ],
+        "processingMethods": [
+          "natural",
+          "pulped-natural"
+        ]
+      },
+      {
+        "id": "cerrado-mineiro",
+        "name": "セラード・ミネイロ",
+        "altitudeM": {
+          "min": 800,
+          "max": 1300
+        },
+        "flavorNotes": [
+          "チョコレート",
+          "キャラメル",
+          "熟した果実"
+        ],
+        "processingMethods": [
+          "natural",
+          "pulped-natural"
+        ]
+      },
+      {
+        "id": "mantiqueira-de-minas",
+        "name": "マンチケイラ・デ・ミナス",
+        "altitudeM": {
+          "min": 1000,
+          "max": 1500
+        },
+        "flavorNotes": [
+          "甘さ",
+          "果実",
+          "バランスのよい風味"
+        ],
+        "processingMethods": [
+          "natural",
+          "pulped-natural",
+          "washed"
+        ]
+      }
+    ],
+    "learningPoints": [
+      "アラビカ種とカネフォラ種の違い",
+      "地域による栽培環境の違い",
+      "精製方法による風味の違い"
+    ],
+    "sources": [
+      {
+        "title": "ブラジル農牧供給省：コーヒー生産",
+        "url": "https://www.gov.br/agricultura/pt-br/assuntos/politica-agricola/cafe/cafeicultura-brasileira"
+      },
+      {
+        "title": "Coffee Bean Guide: Brazil",
+        "url": "https://beans.qualitylife.coffee/en/origin/brazil"
+      }
+    ],
+    "dataStatus": "参考資料に基づく学習用データ"
+  },
+  "CO": {
+    "id": "CO",
+    "name": "コロンビア",
+    "nameEn": "Colombia",
+    "continent": "南米",
+    "region": "南アメリカ北西部",
+    "overview": "アンデス山脈の地形を生かしたアラビカ種の主要産地。",
+    "species": [
+      "アラビカ種"
+    ],
+    "growingConditions": {
+      "altitudeM": {
+        "min": null,
+        "max": null
+      },
+      "climate": "山岳地帯を中心に、標高や地域で気候が異なる",
+      "harvestSeason": "地域によって異なる"
+    },
+    "varieties": [
+      {
+        "name": "カスティージョ",
+        "note": "さび病への抵抗性を持つ品種"
+      },
+      {
+        "name": "コロンビア",
+        "note": "さび病対策のために育成された品種"
+      },
+      {
+        "name": "カトゥーラ",
+        "note": "伝統的に栽培されてきたアラビカ種の品種"
+      }
+    ],
+    "processingMethods": [
+      {
+        "id": "washed",
+        "name": "ウォッシュド",
+        "description": "果肉を除去し、発酵・水洗などを経て乾燥する方法"
+      }
+    ],
+    "flavorNotes": [
+      "柑橘",
+      "キャラメル",
+      "赤い果実",
+      "バランスのよい風味"
+    ],
+    "regions": [
+      {
+        "id": "huila",
+        "name": "ウイラ",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "果実",
+          "甘さ",
+          "柑橘"
+        ],
+        "processingMethods": [
+          "washed"
+        ]
+      },
+      {
+        "id": "narinio",
+        "name": "ナリーニョ",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "明るい酸味",
+          "果実"
+        ],
+        "processingMethods": [
+          "washed"
+        ]
+      }
+    ],
+    "learningPoints": [
+      "アンデス山脈と栽培環境",
+      "地域ごとの収穫時期",
+      "品種改良"
+    ],
+    "sources": [
+      {
+        "title": "World Coffee Research",
+        "url": "https://worldcoffeeresearch.org/"
+      },
+      {
+        "title": "National Coffee Association: Coffee Regions",
+        "url": "https://www.aboutcoffee.org/origins/coffee-regions-of-the-world/"
+      }
+    ]
+  },
+  "KE": {
+    "id": "KE",
+    "name": "ケニア",
+    "nameEn": "Kenya",
+    "continent": "アフリカ",
+    "region": "東アフリカ",
+    "overview": "高地で栽培されるアラビカ種で知られ、品種研究も盛んな産地。",
+    "species": [
+      "アラビカ種"
+    ],
+    "growingConditions": {
+      "altitudeM": {
+        "min": null,
+        "max": null
+      },
+      "climate": "高地を中心とした地域ごとに異なる気候",
+      "harvestSeason": "地域によって異なる"
+    },
+    "varieties": [
+      {
+        "name": "SL28",
+        "note": "ケニアで知られる代表的な品種"
+      },
+      {
+        "name": "SL34",
+        "note": "ケニアで知られる代表的な品種"
+      },
+      {
+        "name": "Batian",
+        "note": "さび病などへの抵抗性を考慮して育成された品種"
+      },
+      {
+        "name": "Ruiru 11",
+        "note": "病害への抵抗性を持つよう育成された品種"
+      }
+    ],
+    "processingMethods": [
+      {
+        "id": "washed",
+        "name": "ウォッシュド",
+        "description": "水洗工程を用いる精製方法"
+      }
+    ],
+    "flavorNotes": [
+      "ベリー",
+      "柑橘",
+      "明るい酸味",
+      "果実感"
+    ],
+    "regions": [
+      {
+        "id": "nyeri",
+        "name": "ニエリ",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "果実",
+          "明るい酸味"
+        ],
+        "processingMethods": [
+          "washed"
+        ]
+      },
+      {
+        "id": "kirinyaga",
+        "name": "キリニャガ",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "柑橘",
+          "ベリー"
+        ],
+        "processingMethods": [
+          "washed"
+        ]
+      }
+    ],
+    "learningPoints": [
+      "SL系統の品種",
+      "高地の栽培環境",
+      "酸味と精製方法"
+    ],
+    "sources": [
+      {
+        "title": "World Coffee Research",
+        "url": "https://worldcoffeeresearch.org/"
+      },
+      {
+        "title": "National Coffee Association: Coffee Regions",
+        "url": "https://www.aboutcoffee.org/origins/coffee-regions-of-the-world/"
+      }
+    ]
+  },
+  "ID": {
+    "id": "ID",
+    "name": "インドネシア",
+    "nameEn": "Indonesia",
+    "continent": "アジア",
+    "region": "東南アジア",
+    "overview": "多くの島々からなり、アラビカ種とロブスタ系統のコーヒーが生産される。",
+    "species": [
+      "アラビカ種",
+      "カネフォラ種（ロブスタなど）"
+    ],
+    "growingConditions": {
+      "altitudeM": {
+        "min": null,
+        "max": null
+      },
+      "climate": "熱帯性気候。島や標高によって栽培環境が異なる",
+      "harvestSeason": "島・地域によって異なる"
+    },
+    "varieties": [
+      {
+        "name": "S795",
+        "note": "インドネシアでも知られる品種"
+      },
+      {
+        "name": "Typica系統",
+        "note": "一部地域で歴史的に栽培されてきた系統"
+      }
+    ],
+    "processingMethods": [
+      {
+        "id": "wet-hulling",
+        "name": "スマトラ式（ウェットハル）",
+        "description": "豆の水分が残る段階で脱殻する、インドネシアで知られる方法"
+      },
+      {
+        "id": "washed",
+        "name": "ウォッシュド",
+        "description": "水洗工程を用いる方法"
+      },
+      {
+        "id": "natural",
+        "name": "ナチュラル",
+        "description": "果実を付けたまま乾燥する方法"
+      }
+    ],
+    "flavorNotes": [
+      "ハーブ",
+      "スパイス",
+      "土や木を思わせる風味",
+      "しっかりした口当たり"
+    ],
+    "regions": [
+      {
+        "id": "sumatra",
+        "name": "スマトラ島",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "ハーブ",
+          "スパイス",
+          "重厚な口当たり"
+        ],
+        "processingMethods": [
+          "wet-hulling",
+          "washed"
+        ]
+      },
+      {
+        "id": "java",
+        "name": "ジャワ島",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "穏やかな酸味",
+          "スパイス"
+        ],
+        "processingMethods": [
+          "washed",
+          "natural"
+        ]
+      }
+    ],
+    "learningPoints": [
+      "島ごとの違い",
+      "スマトラ式精製",
+      "アラビカ種とロブスタ系統"
+    ],
+    "sources": [
+      {
+        "title": "World Coffee Research",
+        "url": "https://worldcoffeeresearch.org/"
+      },
+      {
+        "title": "National Coffee Association: Coffee Regions",
+        "url": "https://www.aboutcoffee.org/origins/coffee-regions-of-the-world/"
+      }
+    ]
+  },
+  "VN": {
+    "id": "VN",
+    "name": "ベトナム",
+    "nameEn": "Vietnam",
+    "continent": "アジア",
+    "region": "東南アジア",
+    "overview": "ロブスタ系統の生産が特に盛んな、世界の主要コーヒー生産国。",
+    "species": [
+      "カネフォラ種（ロブスタなど）",
+      "アラビカ種"
+    ],
+    "growingConditions": {
+      "altitudeM": {
+        "min": null,
+        "max": null
+      },
+      "climate": "地域によって異なり、中部高原が重要な生産地域",
+      "harvestSeason": "主な地域では年末から翌年初めごろ"
+    },
+    "varieties": [
+      {
+        "name": "ロブスタ系統",
+        "note": "ベトナムの主要な生産タイプ"
+      },
+      {
+        "name": "Catimor",
+        "note": "アラビカ種の栽培で用いられる系統"
+      }
+    ],
+    "processingMethods": [
+      {
+        "id": "natural",
+        "name": "ナチュラル",
+        "description": "果実を付けたまま乾燥する方法"
+      },
+      {
+        "id": "washed",
+        "name": "ウォッシュド",
+        "description": "水洗工程を用いる方法"
+      }
+    ],
+    "flavorNotes": [
+      "力強い苦味",
+      "ナッツ",
+      "チョコレート",
+      "しっかりしたボディ"
+    ],
+    "regions": [
+      {
+        "id": "central-highlands",
+        "name": "中部高原",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "しっかりしたボディ",
+          "苦味"
+        ],
+        "processingMethods": [
+          "natural",
+          "washed"
+        ]
+      }
+    ],
+    "learningPoints": [
+      "ロブスタ系統の特徴",
+      "アラビカ種との違い",
+      "生産量と飲み方"
+    ],
+    "sources": [
+      {
+        "title": "World Coffee Research: Varieties Catalog",
+        "url": "https://varieties.worldcoffeeresearch.org/"
+      },
+      {
+        "title": "USDA Foreign Agricultural Service: Coffee Production",
+        "url": "https://fas.usda.gov/data/production/commodity/0711100"
+      }
+    ]
+  },
+  "GT": {
+    "id": "GT",
+    "name": "グアテマラ",
+    "nameEn": "Guatemala",
+    "continent": "北米・中米",
+    "region": "中央アメリカ",
+    "overview": "山岳地帯や火山周辺など、地域ごとに異なる栽培環境を持つアラビカ種の産地。",
+    "species": [
+      "アラビカ種"
+    ],
+    "growingConditions": {
+      "altitudeM": {
+        "min": null,
+        "max": null
+      },
+      "climate": "山岳地帯や火山周辺を含み、地域差が大きい",
+      "harvestSeason": "地域によって異なる"
+    },
+    "varieties": [
+      {
+        "name": "ブルボン",
+        "note": "中米で広く知られるアラビカ種の品種"
+      },
+      {
+        "name": "カトゥーラ",
+        "note": "中米で栽培されるアラビカ種の品種"
+      },
+      {
+        "name": "パカマラ",
+        "note": "グアテマラでも知られる品種"
+      }
+    ],
+    "processingMethods": [
+      {
+        "id": "washed",
+        "name": "ウォッシュド",
+        "description": "水洗工程を用いる方法"
+      },
+      {
+        "id": "natural",
+        "name": "ナチュラル",
+        "description": "果実を付けたまま乾燥する方法"
+      }
+    ],
+    "flavorNotes": [
+      "チョコレート",
+      "ナッツ",
+      "柑橘",
+      "スパイス"
+    ],
+    "regions": [
+      {
+        "id": "antigua",
+        "name": "アンティグア",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "チョコレート",
+          "スパイス"
+        ],
+        "processingMethods": [
+          "washed"
+        ]
+      },
+      {
+        "id": "huehuetenango",
+        "name": "ウエウエテナンゴ",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "果実",
+          "柑橘"
+        ],
+        "processingMethods": [
+          "washed"
+        ]
+      }
+    ],
+    "learningPoints": [
+      "火山周辺の栽培環境",
+      "地域名と産地表示",
+      "品種の多様性"
+    ],
+    "sources": [
+      {
+        "title": "World Coffee Research: Varieties Catalog",
+        "url": "https://varieties.worldcoffeeresearch.org/"
+      },
+      {
+        "title": "National Coffee Association: Coffee Regions",
+        "url": "https://www.aboutcoffee.org/origins/coffee-regions-of-the-world/"
+      }
+    ]
+  },
+  "CR": {
+    "id": "CR",
+    "name": "コスタリカ",
+    "nameEn": "Costa Rica",
+    "continent": "北米・中米",
+    "region": "中央アメリカ",
+    "overview": "アラビカ種を中心に栽培し、マイクロミルなど精製の工夫でも知られる。",
+    "species": [
+      "アラビカ種"
+    ],
+    "growingConditions": {
+      "altitudeM": {
+        "min": null,
+        "max": null
+      },
+      "climate": "山岳地帯や地域ごとの微気候が栽培に影響する",
+      "harvestSeason": "地域によって異なる"
+    },
+    "varieties": [
+      {
+        "name": "カトゥーラ",
+        "note": "中米で広く栽培される品種"
+      },
+      {
+        "name": "カトゥアイ",
+        "note": "中米で広く栽培される品種"
+      },
+      {
+        "name": "ビジャサルチ",
+        "note": "コスタリカで知られる品種"
+      }
+    ],
+    "processingMethods": [
+      {
+        "id": "washed",
+        "name": "ウォッシュド",
+        "description": "水洗工程を用いる方法"
+      },
+      {
+        "id": "honey",
+        "name": "ハニー",
+        "description": "果肉除去後、粘液質を一部残して乾燥する方法"
+      },
+      {
+        "id": "natural",
+        "name": "ナチュラル",
+        "description": "果実を付けたまま乾燥する方法"
+      }
+    ],
+    "flavorNotes": [
+      "柑橘",
+      "キャラメル",
+      "甘さ",
+      "明るい酸味"
+    ],
+    "regions": [
+      {
+        "id": "tarrazu",
+        "name": "タラス",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "柑橘",
+          "明るい酸味"
+        ],
+        "processingMethods": [
+          "washed",
+          "honey"
+        ]
+      },
+      {
+        "id": "west-valley",
+        "name": "ウエストバレー",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "甘さ",
+          "果実"
+        ],
+        "processingMethods": [
+          "washed",
+          "honey",
+          "natural"
+        ]
+      }
+    ],
+    "learningPoints": [
+      "マイクロミル",
+      "ハニー精製",
+      "地域ごとの微気候"
+    ],
+    "sources": [
+      {
+        "title": "World Coffee Research: Costa Rica",
+        "url": "https://worldcoffeeresearch.org/countries/costa-rica"
+      },
+      {
+        "title": "National Coffee Association: Coffee Regions",
+        "url": "https://www.aboutcoffee.org/origins/coffee-regions-of-the-world/"
+      }
+    ]
+  },
+  "HN": {
+    "id": "HN",
+    "name": "ホンジュラス",
+    "nameEn": "Honduras",
+    "continent": "北米・中米",
+    "region": "中央アメリカ",
+    "overview": "アラビカ種の主要産地で、伝統品種と改良品種の両方が栽培される。",
+    "species": [
+      "アラビカ種"
+    ],
+    "growingConditions": {
+      "altitudeM": {
+        "min": null,
+        "max": null
+      },
+      "climate": "山岳地帯を中心に地域差がある",
+      "harvestSeason": "地域によって異なる"
+    },
+    "varieties": [
+      {
+        "name": "レンピラ",
+        "note": "ホンジュラスで栽培される改良品種"
+      },
+      {
+        "name": "パライネマ",
+        "note": "さび病への抵抗性を考慮して育成された品種"
+      },
+      {
+        "name": "カトゥアイ",
+        "note": "中米で栽培されるアラビカ種の品種"
+      }
+    ],
+    "processingMethods": [
+      {
+        "id": "washed",
+        "name": "ウォッシュド",
+        "description": "水洗工程を用いる方法"
+      },
+      {
+        "id": "natural",
+        "name": "ナチュラル",
+        "description": "果実を付けたまま乾燥する方法"
+      }
+    ],
+    "flavorNotes": [
+      "チョコレート",
+      "キャラメル",
+      "柑橘",
+      "果実"
+    ],
+    "regions": [
+      {
+        "id": "copan",
+        "name": "コパン",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "チョコレート",
+          "果実"
+        ],
+        "processingMethods": [
+          "washed"
+        ]
+      },
+      {
+        "id": "comayagua",
+        "name": "コマヤグア",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "甘さ",
+          "柑橘"
+        ],
+        "processingMethods": [
+          "washed"
+        ]
+      }
+    ],
+    "learningPoints": [
+      "品種改良",
+      "中米の主要産地",
+      "地域ごとの味わい"
+    ],
+    "sources": [
+      {
+        "title": "World Coffee Research: Honduras",
+        "url": "https://worldcoffeeresearch.org/countries/honduras"
+      },
+      {
+        "title": "World Coffee Research: Varieties Catalog",
+        "url": "https://varieties.worldcoffeeresearch.org/"
+      }
+    ]
+  },
+  "MX": {
+    "id": "MX",
+    "name": "メキシコ",
+    "nameEn": "Mexico",
+    "continent": "北米・中米",
+    "region": "北アメリカ南部",
+    "overview": "南部の山岳地帯などでアラビカ種を中心に栽培される。",
+    "species": [
+      "アラビカ種"
+    ],
+    "growingConditions": {
+      "altitudeM": {
+        "min": null,
+        "max": null
+      },
+      "climate": "南部の高地を中心に、標高や日陰などの条件が異なる",
+      "harvestSeason": "地域によって異なる"
+    },
+    "varieties": [
+      {
+        "name": "ブルボン",
+        "note": "メキシコを含む複数の産地で栽培される品種"
+      },
+      {
+        "name": "カトゥーラ",
+        "note": "中南米で栽培される品種"
+      },
+      {
+        "name": "ティピカ系統",
+        "note": "歴史的に広く伝播したアラビカ種の系統"
+      }
+    ],
+    "processingMethods": [
+      {
+        "id": "washed",
+        "name": "ウォッシュド",
+        "description": "水洗工程を用いる方法"
+      },
+      {
+        "id": "natural",
+        "name": "ナチュラル",
+        "description": "果実を付けたまま乾燥する方法"
+      }
+    ],
+    "flavorNotes": [
+      "ナッツ",
+      "チョコレート",
+      "柑橘",
+      "穏やかな甘さ"
+    ],
+    "regions": [
+      {
+        "id": "chiapas",
+        "name": "チアパス",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "柑橘",
+          "甘さ"
+        ],
+        "processingMethods": [
+          "washed"
+        ]
+      },
+      {
+        "id": "oaxaca",
+        "name": "オアハカ",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "ナッツ",
+          "チョコレート"
+        ],
+        "processingMethods": [
+          "washed"
+        ]
+      },
+      {
+        "id": "veracruz",
+        "name": "ベラクルス",
+        "altitudeM": {
+          "min": null,
+          "max": null
+        },
+        "flavorNotes": [
+          "穏やかな酸味",
+          "甘さ"
+        ],
+        "processingMethods": [
+          "washed"
+        ]
+      }
+    ],
+    "learningPoints": [
+      "南部の栽培地域",
+      "高地と日陰栽培",
+      "小規模農園"
+    ],
+    "sources": [
+      {
+        "title": "National Coffee Association: Coffee Regions",
+        "url": "https://www.aboutcoffee.org/origins/coffee-regions-of-the-world/"
+      },
+      {
+        "title": "World Coffee Research: Varieties Catalog",
+        "url": "https://varieties.worldcoffeeresearch.org/"
+      }
+    ]
+  }
+}

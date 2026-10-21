@@ -1,0 +1,541 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+
+:root {
+    color-scheme: light;
+    --bg: #f4efe7;
+    --panel: #fffdf9;
+    --ink: #27231f;
+    --muted: #887f75;
+    --line: #ded5c9;
+    --accent: #ca5c3c;
+    --accent-dark: #9b3e28;
+    --map: #e9e0d2;
+    --shadow: 0 18px 50px #4b36251a;
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #202120;
+    --panel: #2b2b29;
+    --ink: #f1e6d8;
+    --muted: #aaa096;
+    --line: #4a4640;
+    --map: #343733;
+    --shadow: 0 18px 50px #00000040;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Plus Jakarta Sans", sans-serif;   
+    
+}
+
+button,
+input {
+    font: inherit;
+}
+
+main {
+    max-height: 100vh;
+}
+
+button {
+    cursor: pointer;
+}
+
+.app-shell {
+    max-width: 100svw;
+    min-height: 100vh;
+    margin: auto;
+    padding: 34px 48px 60px;
+}
+
+.topbar,
+.topbar-actions,
+.section-label,
+.hero,
+.detail-grid,
+.order-row,
+.quantity-row,
+.total-row {
+    display: flex;
+    align-items: center;
+}
+.topbar {
+margin: 20px 0;
+}
+.topbar,
+.hero {
+    justify-content: space-between;
+}
+
+.topbar h1 {
+    margin: 5px 0 0;
+    font: 600 26px "Playfair Display", serif;
+    letter-spacing: -.04em;
+}
+
+em {
+    color: var(--accent);
+    font-style: italic;
+}
+
+.eyebrow,
+.section-label,
+.map-note,
+.checkout-card small {
+    color: var(--muted);
+    font: 500 10px "DM Mono", monospace;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.topbar-actions {
+    gap: 14px;
+}
+
+.theme-toggle,
+.icon-button {
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+}
+
+.score-pill,
+.cart-pill {
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    padding: 10px 14px;
+    font-size: 12px;
+}
+
+.score-pill {
+    color: var(--accent);
+}
+
+.score-pill span {
+    color: var(--muted);
+}
+
+.cart-pill.has-items {
+    background: var(--ink);
+    color: var(--bg);
+}
+
+.hero {
+    padding: 90px 0 65px;
+}
+
+.hero h2 {
+    margin: 12px 0 14px;
+    font: 500 clamp(42px, 6vw, 72px)/.96 "Playfair Display", serif;
+    letter-spacing: -.055em;
+}
+
+.hero-copy {
+    max-width: 390px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.progress-card {
+    width: 250px;
+}
+
+.progress-card>span {
+    color: var(--muted);
+    font: 10px "DM Mono", monospace;
+}
+
+.progress-card strong {
+    display: block;
+    margin: 10px 0;
+    font: 600 32px "Playfair Display", serif;
+}
+
+.progress-card small {
+    color: var(--muted);
+    font: 12px "DM Mono", monospace;
+}
+
+.progress-track {
+    height: 3px;
+    background: var(--line);
+}
+
+.progress-track i {
+    display: block;
+    height: 100%;
+    background: var(--accent);
+    transition: width .4s ease;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns:4fr 1fr ; 
+    gap: 24px;
+}
+
+.map-card,
+.checkout-card {
+    background: var(--panel);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+}
+
+.map-card {
+    padding: 24px;
+}
+
+.section-label {
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.map-surface {
+    position: relative;
+    overflow: hidden;
+    min-height: 455px;
+    border-radius: 2px;
+    background: var(--map);
+}
+
+.map-grid {
+    position: absolute;
+    inset: 0;
+    opacity: .5;
+    background: linear-gradient(90deg, transparent 49.7%, var(--line) 50%, transparent 50.3%), linear-gradient(0deg, transparent 49.7%, var(--line) 50%, transparent 50.3%);
+    background-size: 20% 20%;
+}
+
+.map-surface:after {
+    content: "";
+    position: absolute;
+    inset: 16% 12%;
+    border: 1px solid var(--line);
+    border-radius: 46% 54% 42% 58%;
+    transform: rotate(-11deg);
+    opacity: .75;
+}
+
+.origin-marker {
+    position: absolute;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.origin-marker span {
+    display: block;
+    width: 14px;
+    height: 14px;
+    margin: auto auto 7px;
+    border: 3px solid var(--panel);
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+    transition: transform .2s;
+}
+
+.origin-marker:hover span,
+.origin-marker:focus-visible span {
+    transform: scale(1.4);
+}
+
+.map-note {
+    margin: 16px 0 0;
+    font-size: 9px;
+    letter-spacing: .08em;
+}
+
+.checkout-card {
+    align-self: start;
+    padding: 25px;
+}
+
+.card-heading h2 {
+    margin: 8px 0 28px;
+    font: 500 28px "Playfair Display", serif;
+}
+
+.order-row {
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.order-row strong,
+.total-row strong {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.quantity-row {
+    justify-content: space-between;
+    padding: 14px 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.quantity-row input {
+    width: 58px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    padding: 6px;
+    text-align: center;
+}
+
+.total-row {
+    justify-content: space-between;
+    border-top: 1px solid var(--line);
+    padding: 20px 0;
+    font-size: 14px;
+}
+
+.total-row strong {
+    color: var(--accent);
+    font: 600 24px "Playfair Display", serif;
+}
+
+.primary-button {
+    border: 0;
+    border-radius: 2px;
+    padding: 13px 18px;
+    background: var(--accent);
+    color: white;
+    font-weight: 600;
+}
+
+.primary-button:hover {
+    background: var(--accent-dark);
+}
+
+.checkout-button {
+    width: 100%;
+    margin: 5px 0 16px;
+}
+
+.checkout-card small {
+    display: block;
+    font: 10px/1.6 "Plus Jakarta Sans", sans-serif;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.status {
+    padding: 10px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.success {
+    background: #dcebdc;
+    color: #35613e;
+}
+
+.warning {
+    background: #f5e7bd;
+    color: #76581d;
+}
+
+.error {
+    background: #f5d9d4;
+    color: #8a3024;
+}
+
+.modal-backdrop,
+.transition-screen {
+    position: fixed;
+    z-index: 5;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: #1d1713aa;
+}
+
+.modal {
+    position: relative;
+    width: min(520px, calc(100% - 32px));
+    padding: 36px;
+    background: var(--panel);
+    box-shadow: var(--shadow);
+}
+
+.modal .icon-button {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    border: 0;
+    font-size: 24px;
+}
+
+.modal h2 {
+    margin: 8px 0 16px;
+    font: 500 38px "Playfair Display", serif;
+}
+
+.modal-overview {
+    color: var(--muted);
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+.detail-grid {
+    gap: 45px;
+    margin: 25px 0;
+}
+
+.detail-grid div span {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--muted);
+    font: 10px "DM Mono", monospace;
+}
+
+.detail-grid strong {
+    font-size: 13px;
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.tag-list span {
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.modal-source {
+    color: var(--muted);
+    font-size: 10px;
+    margin: 28px 0;
+}
+
+.transition-screen {
+    flex-direction: column;
+    gap: 20px;
+    background: var(--bg);
+    color: var(--ink);
+}
+
+.transition-screen p {
+    color: var(--muted);
+    font: 12px "DM Mono", monospace;
+}
+
+.bean-bag {
+    width: 90px;
+    height: 110px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px 10px 20px 20px;
+    background: var(--accent);
+    color: #fff5e8;
+    font: 14px "DM Mono", monospace;
+    animation: bag-to-cart 1.7s ease-in-out forwards;
+}
+
+.cart-icon {
+    font-size: 42px;
+    animation: cart-arrive 1.7s ease-in-out forwards;
+}
+
+@keyframes bag-to-cart {
+
+    0%,
+    20% {
+        transform: translateX(-120px) rotate(-8deg);
+    }
+
+    80%,
+    100% {
+        transform: translateX(120px) rotate(8deg) scale(.7);
+        opacity: .2;
+    }
+}
+
+@keyframes cart-arrive {
+
+    0%,
+    80% {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 800px) {
+    .app-shell {
+        padding: 24px 20px 40px;
+    }
+
+    .hero {
+        display: block;
+        padding: 65px 0 40px;
+    }
+
+    .progress-card {
+        margin-top: 36px;
+        width: 100%;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .map-surface {
+        min-height: 360px;
+    }
+
+    .topbar h1 {
+        font-size: 21px;
+    }
+
+    .topbar-actions {
+        gap: 7px;
+    }
+
+    .score-pill,
+    .cart-pill {
+        padding: 8px 9px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *:before,
+    *:after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
