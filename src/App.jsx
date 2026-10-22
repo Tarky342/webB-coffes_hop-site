@@ -5,13 +5,13 @@ import { Header } from "./components/Header.jsx";
 import { OriginDetailsModal } from "./components/OriginDetailsModal.jsx";
 import { OriginMap } from "./components/OriginMap.jsx";
 import { BeanTransition } from "./components/BeanTransition.jsx";
-import { APP_CONFIG } from "./lib/config.js";
-import { normalizeOrigins } from "./lib/origins.js";
+import { APP_CONFIG, MAP_CONFIG } from "./lib/config.js";
+import { getAwardedScore, normalizeOrigins } from "./lib/origins.js";
 
 export default function App() {
   const origins = useMemo(() => normalizeOrigins(originData), []);
   const [theme, setTheme] = useState("light");
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(APP_CONFIG.score.initialValue);
   const [selectedOrigin, setSelectedOrigin] = useState(null);
   const [showTransition, setShowTransition] = useState(false);
   const [cartQuantity, setCartQuantity] = useState(0);
@@ -37,8 +37,16 @@ export default function App() {
   const handleOriginSelect = (origin) => {
     setSelectedOrigin(origin);
     setScore((currentScore) => {
-      const nextScore = currentScore + APP_CONFIG.scorePerOrigin;
-      if (nextScore >= APP_CONFIG.scoreThreshold && !thresholdHandled.current) {
+      const nextScore = getAwardedScore(
+        currentScore,
+        APP_CONFIG.score,
+        "origin-select"
+      );
+      if (
+        nextScore >= APP_CONFIG.score.requiredScore &&
+        !thresholdHandled.current &&
+        APP_CONFIG.score.triggerTransitionOnce
+      ) {
         thresholdHandled.current = true;
         window.setTimeout(() => setShowTransition(true), 0);
       }
@@ -69,7 +77,7 @@ export default function App() {
   };
 
   return (
-    <main className="app-shell">
+    <main className="app-shell" style={{ maxWidth: `${MAP_CONFIG.layout.maxWidth}px` }}>
       <Header
         theme={theme}
         score={score}
@@ -84,7 +92,7 @@ export default function App() {
           onOriginSelect={handleOriginSelect}
         />
         <CheckoutCard
-          quantity={Math.max(cartQuantity, 1)}
+          quantity={cartQuantity}
           checkoutState={checkoutState}
           onCheckout={handleCheckout}
         />

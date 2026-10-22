@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { formatAltitude } from "../lib/origins.js";
+import { MAP_CONFIG } from "../lib/config.js";
+import { formatAltitude, formatProduction, hasProductionData } from "../lib/origins.js";
 
 export function OriginDetailsModal({ origin, onClose }) {
   const closeButton = useRef(null);
@@ -19,8 +20,17 @@ export function OriginDetailsModal({ origin, onClose }) {
         <h2 id="origin-title">{origin.name}</h2>
         <p className="modal-overview">{origin.overview || "この産地の概要は準備中です。"}</p>
         <div className="detail-grid">
-          <div><span>地域</span><strong>{origin.region || "情報なし"}</strong></div>
-          <div><span>標高</span><strong>{formatAltitude(origin.growingConditions)}</strong></div>
+          <div><span>地域</span><strong>{origin.region || "情報がないようです :("}</strong></div>
+          {/* <div><span>標高</span><strong>{formatAltitude(origin.growingConditions)}</strong></div> */}
+        </div>
+        <div className="production-detail">
+          <span>生豆生産量</span>
+          <strong>{formatProduction(origin, MAP_CONFIG.production)}</strong>
+          {hasProductionData(origin) && (
+            <small>
+              出典: <a href={MAP_CONFIG.production.sourceUrl} target="_blank" rel="noreferrer">FAOSTAT / Invokely</a>
+            </small>
+          )}
         </div>
         {origin.flavorNotes?.length > 0 && (
           <div className="tag-list" aria-label="フレーバーノート">

@@ -2,17 +2,33 @@ import { useLayoutEffect, useRef } from "react";
 import * as am5 from "@amcharts/amcharts5";
 import * as am5map from "@amcharts/amcharts5/map";
 import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
-import { APP_CONFIG } from "../lib/config.js";
-import { getOriginCoordinates } from "../lib/origins.js";
+import { APP_CONFIG, MAP_CONFIG } from "../lib/config.js";
+import {
+  formatProduction,
+  getOriginCoordinates,
+  getProductionRadius
+} from "../lib/origins.js";
 
 const MAP_COLORS = {
-  light: { land: 0xcbbca9, border: 0x927d69, hover: 0xca5c3c, text: 0x3f342b },
-  dark: { land: 0x4b514c, border: 0x858b80, hover: 0xd97952, text: 0xf1e6d8 }
+  light: { land: 0xcbbca9, border: 0x927d69, text: 0x3f342b },
+  dark: { land: 0x4b514c, border: 0x858b80, text: 0xf1e6d8 }
 };
 
+function toAm5Color(value, fallback) {
+  const hex = typeof value === "string" && /^#[0-9a-f]{6}$/i.test(value)
+    ? value.slice(1)
+    : fallback;
+  return am5.color(Number.parseInt(hex, 16));
+}
+
 export function OriginMap({ origins, theme, onOriginSelect }) {
+  const surfaceElement = useRef(null);
   const chartElement = useRef(null);
+  const backgroundElement = useRef(null);
   const onOriginSelectRef = useRef(onOriginSelect);
+  const mapBackground = theme === "dark"
+    ? "/images/maps/map-background-dark.png"
+    : "/images/maps/map-background-light.png";
 
   useLayoutEffect(() => {
     onOriginSelectRef.current = onOriginSelect;
@@ -24,26 +40,97 @@ export function OriginMap({ origins, theme, onOriginSelect }) {
 
     const root = am5.Root.new(chartElement.current);
     const chart = root.container.children.push(am5map.MapChart.new(root, {
-      panX: "rotateX",
-      panY: "none",
+      panX: MAP_CONFIG.interaction.mapPan ? "translateX" : "none",
+      panY: MAP_CONFIG.interaction.mapPan ? "translateY" : "none",
       projection: am5map.geoMercator(),
-      homeGeoPoint: { longitude: 15, latitude: 15 },
-      homeZoomLevel: 1.1
+      homeGeoPoint: {
+        longitude: MAP_CONFIG.initialView.centerLongitude,
+        latitude: MAP_CONFIG.initialView.centerLatitude
+      },
+      homeZoomLevel: MAP_CONFIG.initialView.zoomLevel,
+      zoomLevel: MAP_CONFIG.initialView.zoomLevel,
+      minZoomLevel: MAP_CONFIG.zoom.minLevel,
+      maxZoomLevel: MAP_CONFIG.zoom.maxLevel,
+      maxPanOut: MAP_CONFIG.zoom.maxPanOut,
+      pinchZoom: MAP_CONFIG.interaction.mapZoom,
+      wheelX: MAP_CONFIG.interaction.mapZoom ? "zoom" : "none",
+      wheelY: MAP_CONFIG.interaction.mapZoom ? "zoom" : "none",
+      doubleClickZoom: MAP_CONFIG.interaction.mapZoom,
+      boxZoom: "none"
     }));
+    let baseView;
+    let previousSize;
+    const getMapBounds = () => {
+      if (!chartElement.current || !surfaceElement.current) return undefined;
+
+      const mapRect = chartElement.current.getBoundingClientRect();
+      const surfaceRect = surfaceElement.current.getBoundingClientRect();
+      return {
+        left: mapRect.left - surfaceRect.left,
+        top: mapRect.top - surfaceRect.top,
+        width: mapRect.width,
+        height: mapRect.height
+      };
+    };
+    const syncBackground = ({ resetBase = false } = {}) => {
+      const background = backgroundElement.current;
+      const mapBounds = getMapBounds();
+      if (!background || !mapBounds || mapBounds.width <= 0 || mapBounds.height <= 0) {
+        return;
+      }
+
+      const zoomLevel = chart.get("zoomLevel", MAP_CONFIG.initialView.zoomLevel);
+      const translateX = chart.get("translateX", chart.width() / 2);
+      const translateY = chart.get("translateY", chart.height() / 2);
+      const sizeChanged = !previousSize
+        || previousSize.width !== mapBounds.width
+        || previousSize.height !== mapBounds.height;
+
+      background.style.left = `${mapBounds.left}px`;
+      background.style.top = `${mapBounds.top}px`;
+      background.style.width = `${mapBounds.width}px`;
+      background.style.height = `${mapBounds.height}px`;
+
+      if (!baseView || resetBase || sizeChanged) {
+        baseView = { zoomLevel, translateX, translateY };
+      }
+      previousSize = mapBounds;
+
+      const scale = zoomLevel / baseView.zoomLevel;
+      const offsetX = translateX - baseView.translateX;
+      const offsetY = translateY - baseView.translateY;
+      background.style.transform =
+        `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+    };
+    root.events.on("frameended", syncBackground);
+    const resizeObserver = new ResizeObserver(() => syncBackground({ resetBase: true }));
+    resizeObserver.observe(chartElement.current);
     const polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
-      geoJSON: am5geodata_worldLow
+      geoJSON: am5geodata_worldLow,
+      exclude: MAP_CONFIG.geography.excludeAntarctica ? ["AQ"] : []
     }));
 
     polygonSeries.mapPolygons.template.setAll({
-      fill: am5.color(colors.land),
+      templateField: "polygonSettings",
+      interactive: MAP_CONFIG.interaction.countryClickable,
+      fill: toAm5Color(MAP_CONFIG.countryStyle.defaultFill, colors.land.toString(16)),
       fillOpacity: 1,
-      stroke: am5.color(colors.border),
-      strokeWidth: 0.7,
-      tooltipText: "{name}"
+      stroke: toAm5Color(MAP_CONFIG.countryStyle.defaultStroke, colors.border.toString(16)),
+      strokeWidth: MAP_CONFIG.countryStyle.defaultStrokeWidth,
+      tooltipText: ""
     });
-    polygonSeries.mapPolygons.template.states.create("hover", {
-      fill: am5.color(colors.hover)
-    });
+    polygonSeries.data.setAll(origins.map((origin) => ({
+      id: origin.id,
+      polygonSettings: {
+        fill: toAm5Color(origin.countryColor, colors.land.toString(16)),
+        fillOpacity: 1,
+        stroke: toAm5Color(
+          MAP_CONFIG.countryStyle.defaultStroke,
+          colors.border.toString(16)
+        ),
+        strokeWidth: MAP_CONFIG.countryStyle.defaultStrokeWidth
+      }
+    })));
 
     const pointSeries = chart.series.push(am5map.MapPointSeries.new(root, {
       latitudeField: "latitude",
@@ -58,17 +145,24 @@ export function OriginMap({ origins, theme, onOriginSelect }) {
         }),
         centerX: am5.p50,
         centerY: am5.p50,
-        cursorOverStyle: "pointer",
-        interactive: true,
-        focusable: true,
+        cursorOverStyle: MAP_CONFIG.interaction.dotClickable ? "pointer" : undefined,
+        interactive: MAP_CONFIG.interaction.dotClickable,
+        focusable: MAP_CONFIG.interaction.dotClickable,
         role: "button",
-        ariaLabel: `${origin.name}の詳細を開く`
+        ariaLabel: `${origin.name}の詳細を開く。${formatProduction(origin, MAP_CONFIG.production)}`
       });
       const dot = marker.children.push(am5.Circle.new(bulletRoot, {
-        radius: 7,
-        fill: am5.color(colors.hover),
-        stroke: am5.color(0xffffff),
-        strokeWidth: 3,
+        radius: getProductionRadius(
+          origin.productionTonnes,
+          origins,
+          MAP_CONFIG.dotScale
+        ),
+        fill: toAm5Color(origin.dotColor, MAP_CONFIG.dotStyle.color.slice(1)),
+        stroke: toAm5Color(
+          MAP_CONFIG.dotStyle.strokeColor,
+          "FFFFFF"
+        ),
+        strokeWidth: MAP_CONFIG.dotStyle.strokeWidth,
         interactive: false
       }));
       marker.children.push(am5.Label.new(bulletRoot, {
@@ -79,17 +173,9 @@ export function OriginMap({ origins, theme, onOriginSelect }) {
         interactive: false
       }));
 
-      marker.events.on("click", () => onOriginSelectRef.current(origin));
-      marker.events.on("pointerover", () => dot.animate({
-        key: "scale",
-        to: 1.4,
-        duration: 150
-      }));
-      marker.events.on("pointerout", () => dot.animate({
-        key: "scale",
-        to: 1,
-        duration: 150
-      }));
+      if (MAP_CONFIG.interaction.dotClickable) {
+        marker.events.on("click", () => onOriginSelectRef.current(origin));
+      }
 
       return am5.Bullet.new(bulletRoot, { sprite: marker });
     });
@@ -100,17 +186,31 @@ export function OriginMap({ origins, theme, onOriginSelect }) {
 
     chart.appear(500, 50);
 
-    return () => root.dispose();
+    return () => {
+      resizeObserver.disconnect();
+      root.dispose();
+    };
   }, [origins, theme]);
 
   return (
     <div className="map-card">
       <div className="section-label"><span>COFFEE ORIGINS</span><span>{origins.length} ORIGINS</span></div>
-      <div className="map-surface" aria-label="コーヒー産地マップ">
+      <div
+        ref={surfaceElement}
+        className="map-surface"
+        aria-label="コーヒー産地マップ"
+      >
+        <img
+          ref={backgroundElement}
+          className="map-background-layer"
+          src={mapBackground}
+          alt=""
+          aria-hidden="true"
+        />
         <div ref={chartElement} className="world-map-chart" />
         {origins.length === 0 && <p className="empty-state">表示できる産地データがありません。</p>}
       </div>
-      <p className="map-note">地点を選ぶと、産地の詳細を確認して +{APP_CONFIG.scorePerOrigin} pt 獲得できます。</p>
+      <p className="map-note">地点を選ぶと、産地の詳細を確認して +{APP_CONFIG.score.awardAmount} pt 獲得できます。</p>
     </div>
   );
 }

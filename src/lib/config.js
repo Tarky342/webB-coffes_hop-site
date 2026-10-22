@@ -1,6 +1,58 @@
 export const APP_CONFIG = {
-  scoreThreshold: 5,
-  scorePerOrigin: 1,
+  score: {
+    initialValue: 0,
+    awardCondition: "origin-select",
+    awardAmount: 1,
+    requiredScore: 5,
+    maxScore: 5,
+    triggerTransitionOnce: true
+  },
   productPrice: 1800,
-  productName: "Coffee Bean Explorer sample bag"
+  productName: "ブレンドコーヒー豆"
+};
+
+export const MAP_CONFIG = {
+  layout: {
+    maxWidth: 1280
+  },
+  dotScale: {
+    minRadius: 5,
+    maxRadius: 16,
+    method: "log"
+  },
+  dotStyle: {
+    color: "#CA5C3C",
+    strokeColor: "#FFFFFF",
+    strokeWidth: 3
+  },
+  countryStyle: {
+    defaultFill: "#F1F3F2",
+    defaultStroke: "#927D69",
+    defaultStrokeWidth: 0.7
+  },
+  geography: {
+    excludeAntarctica: true
+  },
+  initialView: {
+    centerLongitude: 20,
+    centerLatitude: 5,
+    zoomLevel: 1.25
+  },
+  interaction: {
+    dotClickable: true,
+    mapPan: true,
+    mapZoom: true,
+    countryClickable: false,
+    backgroundClickable: false
+  },
+  zoom: {
+    minLevel: 1,
+    maxLevel: 8,
+    maxPanOut: 0.25
+  },
+  production: {
+    unit: "トン",
+    source: "FAOSTAT「Coffee, green, production, t」2024年（Invokely掲載）",
+    sourceUrl: "https://invokely.ai/rankings/coffee-production/countries"
+  }
 };

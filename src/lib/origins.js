@@ -21,10 +21,57 @@ export function getOriginCoordinates(originId) {
   return ORIGIN_COORDINATES[originId] || null;
 }
 
+export function getProductionRadius(productionTonnes, origins, sizeConfig) {
+  const values = origins
+    .map((origin) => origin.productionTonnes)
+    .filter((value) => Number.isFinite(value) && value > 0);
+  const minProduction = values.length ? Math.min(...values) : 0;
+  const maxProduction = Math.max(...values, 0);
+  if (!Number.isFinite(productionTonnes) || productionTonnes < 0 || maxProduction <= 0) {
+    return sizeConfig.minRadius;
+  }
+  if (sizeConfig.method !== "log" || maxProduction <= minProduction) {
+    return (sizeConfig.minRadius + sizeConfig.maxRadius) / 2;
+  }
+
+  const value = Math.log1p(Math.max(0, productionTonnes));
+  const min = Math.log1p(Math.max(0, minProduction));
+  const max = Math.log1p(Math.max(0, maxProduction));
+  const ratio = Math.max(0, Math.min(1, (value - min) / (max - min)));
+  return sizeConfig.minRadius + ratio * (sizeConfig.maxRadius - sizeConfig.minRadius);
+}
+
+export function formatProduction(origin, productionConfig) {
+  if (!Number.isFinite(origin.productionTonnes) || origin.productionTonnes < 0) {
+    return "生産量情報なし";
+  }
+  const estimate = origin.productionEstimated ? "（推計値）" : "";
+  return `${origin.productionTonnes.toLocaleString("ja-JP")} ${productionConfig.unit}${estimate} / ${origin.productionYear}年`;
+}
+
+export function hasProductionData(origin) {
+  return Number.isFinite(origin.productionTonnes) && origin.productionTonnes >= 0;
+}
+
+export function getAwardedScore(currentScore, scoreConfig, condition) {
+  if (
+    condition !== scoreConfig.awardCondition ||
+    !Number.isFinite(currentScore) ||
+    !Number.isFinite(scoreConfig.awardAmount) ||
+    scoreConfig.awardAmount <= 0 ||
+    !Number.isFinite(scoreConfig.maxScore) ||
+    currentScore >= scoreConfig.maxScore
+  ) {
+    return currentScore;
+  }
+
+  return Math.min(currentScore + scoreConfig.awardAmount, scoreConfig.maxScore);
+}
+
 export function formatAltitude(conditions) {
   const altitude = conditions?.altitudeM;
   if (!altitude || (altitude.min == null && altitude.max == null)) {
-    return "標高情報なし";
+    return "標高情報はないみたいだ";
   }
   return `${altitude.min ?? "—"}–${altitude.max ?? "—"} m`;
 }

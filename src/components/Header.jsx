@@ -16,7 +16,7 @@ export function Header({ theme, score, cartQuantity, onThemeToggle }) {
           {theme === "light" ? "☼" : "☾"}
         </button>
         <div className="score-pill" aria-label={`豆ポイント ${score}`}>
-          ✦ {score} <span>/ {APP_CONFIG.scoreThreshold}</span>
+          ✦ {score} <span>/ {APP_CONFIG.score.requiredScore}</span>
         </div>
         <div className={`cart-pill ${cartQuantity ? "has-items" : ""}`} aria-label={`カート ${cartQuantity}個`}>
           🛒 {cartQuantity}

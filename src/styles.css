@@ -48,7 +48,7 @@ input {
 }
 
 main {
-    max-height: 100vh;
+    width: 100%;
 }
 
 button {
@@ -56,7 +56,8 @@ button {
 }
 
 .app-shell {
-    max-width: 100svw;
+    width: 100%;
+    max-width: 1200px;
     min-height: 100vh;
     margin: auto;
     padding: 34px 48px 60px;
@@ -188,7 +189,7 @@ em {
 
 .content-grid {
     display: grid;
-    grid-template-columns: 900px minmax(220px, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(200px, 240px);
     gap: 24px;
     align-items: start;
 }
@@ -204,7 +205,7 @@ em {
 .map-card {
     padding: 24px;
     min-width: 0;
-    overflow-x: auto;
+    overflow: visible;
 }
 
 .section-label {
@@ -215,17 +216,28 @@ em {
 .map-surface {
     position: relative;
     overflow: hidden;
-    width: 900px;
-    height: 455px;
-    flex: 0 0 900px;
+    width: 100%;
+    aspect-ratio: 900 / 455;
+    min-height: clamp(320px, 42vw, 560px);
     border-radius: 2px;
     background: var(--map-ocean);
 }
 
+.map-background-layer {
+    position: absolute;
+    z-index: 0;
+    object-fit: fill;
+    transform-origin: 0 0;
+    pointer-events: none;
+    user-select: none;
+}
+
 .world-map-chart {
     position: absolute;
+    z-index: 1;
     inset: 0;
-    background: var(--map-ocean);
+    background: transparent;
+    touch-action: none;
 }
 
 .map-surface:after {
@@ -238,23 +250,46 @@ em {
     letter-spacing: .08em;
 }
 
+.production-detail {
+    display: grid;
+    gap: 6px;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+}
+
+.production-detail > span,
+.production-detail small {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.production-detail strong {
+    font-size: 14px;
+}
+
+.production-detail a {
+    color: inherit;
+}
+
 .checkout-card {
     align-self: start;
-    padding: 25px;
+    padding: 18px;
     min-width: 0;
     width: 100%;
 }
 
 .card-heading h2 {
-    margin: 8px 0 28px;
-    font: 500 28px "Playfair Display", serif;
+    margin: 4px 0 18px;
+    font: 500 23px "Playfair Display", serif;
 }
 
 .order-row {
     align-items: flex-start;
     justify-content: space-between;
     gap: 10px;
-    padding: 18px 0;
+    padding: 12px 0;
     border-top: 1px solid var(--line);
     font-size: 13px;
     line-height: 1.5;
@@ -285,13 +320,13 @@ em {
 .total-row {
     justify-content: space-between;
     border-top: 1px solid var(--line);
-    padding: 20px 0;
+    padding: 14px 0;
     font-size: 14px;
 }
 
 .total-row strong {
     color: var(--accent);
-    font: 600 24px "Playfair Display", serif;
+    font: 600 20px "Playfair Display", serif;
 }
 
 .primary-button {
@@ -309,7 +344,7 @@ em {
 
 .checkout-button {
     width: 100%;
-    margin: 5px 0 16px;
+    margin: 5px 0 12px;
 }
 
 .checkout-card small {
