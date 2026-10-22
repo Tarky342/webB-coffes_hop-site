@@ -225,41 +225,11 @@ em {
 .world-map-chart {
     position: absolute;
     inset: 0;
-    width: 900px;
-    height: 455px;
     background: var(--map-ocean);
 }
 
 .map-surface:after {
     display: none;
-}
-
-.origin-marker {
-    position: absolute;
-    z-index: 1;
-    transform: translate(-50%, -50%);
-    border: 0;
-    background: transparent;
-    color: var(--ink);
-    font-size: 11px;
-    white-space: nowrap;
-}
-
-.origin-marker span {
-    display: block;
-    width: 14px;
-    height: 14px;
-    margin: auto auto 7px;
-    border: 3px solid var(--panel);
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 1px var(--accent);
-    transition: transform .2s;
-}
-
-.origin-marker:hover span,
-.origin-marker:focus-visible span {
-    transform: scale(1.4);
 }
 
 .map-note {
