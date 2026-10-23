@@ -4,19 +4,20 @@ import { CheckoutCard } from "./components/CheckoutCard.jsx";
 import { Header } from "./components/Header.jsx";
 import { OriginDetailsModal } from "./components/OriginDetailsModal.jsx";
 import { OriginMap } from "./components/OriginMap.jsx";
-import { BeanTransition } from "./components/BeanTransition.jsx";
+import { BeanTransition } from "./components/transitions/BeanTransition.jsx";
 import { APP_CONFIG, MAP_CONFIG } from "./lib/config.js";
-import { getAwardedScore, normalizeOrigins } from "./lib/origins.js";
+import { getBlendPoints, getBlendPrice } from "./lib/blend.js";
+import { normalizeOrigins } from "./lib/origins.js";
 
 export default function App() {
   const origins = useMemo(() => normalizeOrigins(originData), []);
   const [theme, setTheme] = useState("light");
-  const [score, setScore] = useState(APP_CONFIG.score.initialValue);
+  const [blendItems, setBlendItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const [selectedOrigin, setSelectedOrigin] = useState(null);
   const [showTransition, setShowTransition] = useState(false);
-  const [cartQuantity, setCartQuantity] = useState(0);
   const [checkoutState, setCheckoutState] = useState("idle");
-  const thresholdHandled = useRef(false);
+  const transitionStarted = useRef(false);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -34,46 +35,62 @@ export default function App() {
       .catch(() => setCheckoutState("error"));
   }, []);
 
+  const score = getBlendPoints(blendItems);
+  const cartQuantity = cartItems.length;
+
   const handleOriginSelect = (origin) => {
     setSelectedOrigin(origin);
-    setScore((currentScore) => {
-      const nextScore = getAwardedScore(
-        currentScore,
-        APP_CONFIG.score,
-        "origin-select"
-      );
-      if (
-        nextScore >= APP_CONFIG.score.requiredScore &&
-        !thresholdHandled.current &&
-        APP_CONFIG.score.triggerTransitionOnce
-      ) {
-        thresholdHandled.current = true;
-        window.setTimeout(() => setShowTransition(true), 0);
-      }
-      return nextScore;
-    });
   };
 
-  const handleTransitionComplete = () => {
-    setShowTransition(false);
-    setCartQuantity((quantity) => quantity + 1);
+  const handleAddToBlend = (origin) => {
+    setBlendItems((items) => [...items, origin]);
+    setSelectedOrigin(null);
   };
 
-  const handleCheckout = async () => {
-    if (checkoutState === "processing") return;
+  const handleRemoveFromBlend = (index) => {
+    if (cartItems.length > 0) {
+      setCartItems((items) => items.filter((_, itemIndex) => itemIndex !== index));
+      setBlendItems((items) => items.filter((_, itemIndex) => itemIndex !== index));
+      return;
+    }
+    setBlendItems((items) => items.filter((_, itemIndex) => itemIndex !== index));
+  };
+
+  const createCheckoutSession = async (items) => {
+    const points = getBlendPoints(items);
+    const amount = getBlendPrice(points);
     setCheckoutState("processing");
     try {
       const response = await fetch("/api/checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ quantity: Math.max(cartQuantity, 1) })
+        body: JSON.stringify({
+          items: items.map(({ id }) => id),
+          points,
+          amount
+        })
       });
       const result = await response.json();
       if (!response.ok || !result.checkoutUrl) throw new Error(result.error || "checkout");
       window.location.assign(result.checkoutUrl);
     } catch {
+      transitionStarted.current = false;
       setCheckoutState("error");
     }
+  };
+
+  const handleCheckout = () => {
+    if (checkoutState === "processing" || transitionStarted.current || blendItems.length === 0) return;
+    transitionStarted.current = true;
+    setCheckoutState("transitioning");
+    setShowTransition(true);
+  };
+
+  const handleTransitionComplete = () => {
+    setShowTransition(false);
+    const confirmedItems = [...blendItems];
+    setCartItems(confirmedItems);
+    createCheckoutSession(confirmedItems);
   };
 
   return (
@@ -92,19 +109,25 @@ export default function App() {
           onOriginSelect={handleOriginSelect}
         />
         <CheckoutCard
-          quantity={cartQuantity}
+          blendItems={blendItems}
+          cartItems={cartItems}
           checkoutState={checkoutState}
           onCheckout={handleCheckout}
+          onRemove={handleRemoveFromBlend}
         />
       </section>
       {selectedOrigin && (
         <OriginDetailsModal
           origin={selectedOrigin}
           onClose={() => setSelectedOrigin(null)}
+          onAddToBlend={handleAddToBlend}
         />
       )}
       {showTransition && (
-        <BeanTransition theme={theme} onComplete={handleTransitionComplete} />
+        <BeanTransition
+          theme={theme}
+          onComplete={handleTransitionComplete}
+        />
       )}
     </main>
   );

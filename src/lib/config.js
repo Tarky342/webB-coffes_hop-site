@@ -1,14 +1,15 @@
 export const APP_CONFIG = {
   score: {
     initialValue: 0,
-    awardCondition: "origin-select",
-    awardAmount: 1,
-    requiredScore: 5,
-    maxScore: 5,
-    triggerTransitionOnce: true
+    awardCondition: "blend-add",
+    awardAmount: 1
   },
-  productPrice: 1800,
-  productName: "ブレンドコーヒー豆"
+  pricing: {
+    mode: "fixed",
+    fixedPrice: 1800,
+    currency: "jpy"
+  },
+  productName: "オリジナルブレンドコーヒー豆"
 };
 
 export const MAP_CONFIG = {
