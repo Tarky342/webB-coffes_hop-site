@@ -11,6 +11,10 @@ const ORIGIN_COORDINATES = {
   MX: { latitude: 23.6, longitude: -102.5 }
 };
 
+export function getFlagUrl(countryId) {
+  return `https://flagcdn.com/${String(countryId || "").toLowerCase()}.svg`;
+}
+
 export function normalizeOrigins(data) {
   return Object.values(data).filter(
     (origin) => origin && typeof origin === "object" && origin.id

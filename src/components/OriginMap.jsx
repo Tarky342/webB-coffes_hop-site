@@ -24,7 +24,6 @@ function toAm5Color(value, fallback) {
 export function OriginMap({ origins, theme, onOriginSelect }) {
   const surfaceElement = useRef(null);
   const chartElement = useRef(null);
-  const backgroundElement = useRef(null);
   const onOriginSelectRef = useRef(onOriginSelect);
   const mapBackground = theme === "dark"
     ? "/images/maps/map-background-dark.png"
@@ -42,7 +41,7 @@ export function OriginMap({ origins, theme, onOriginSelect }) {
     const chart = root.container.children.push(am5map.MapChart.new(root, {
       panX: MAP_CONFIG.interaction.mapPan ? "translateX" : "none",
       panY: MAP_CONFIG.interaction.mapPan ? "translateY" : "none",
-      projection: am5map.geoMercator(),
+      projection: am5map.geoEquirectangular(),
       homeGeoPoint: {
         longitude: MAP_CONFIG.initialView.centerLongitude,
         latitude: MAP_CONFIG.initialView.centerLatitude
@@ -58,53 +57,11 @@ export function OriginMap({ origins, theme, onOriginSelect }) {
       doubleClickZoom: MAP_CONFIG.interaction.mapZoom,
       boxZoom: "none"
     }));
-    let baseView;
-    let previousSize;
-    const getMapBounds = () => {
-      if (!chartElement.current || !surfaceElement.current) return undefined;
+    chart.series.push(am5map.MapRasterSeries.new(root, {
+      src: mapBackground,
+      affectsBounds: true
+    }));
 
-      const mapRect = chartElement.current.getBoundingClientRect();
-      const surfaceRect = surfaceElement.current.getBoundingClientRect();
-      return {
-        left: mapRect.left - surfaceRect.left,
-        top: mapRect.top - surfaceRect.top,
-        width: mapRect.width,
-        height: mapRect.height
-      };
-    };
-    const syncBackground = ({ resetBase = false } = {}) => {
-      const background = backgroundElement.current;
-      const mapBounds = getMapBounds();
-      if (!background || !mapBounds || mapBounds.width <= 0 || mapBounds.height <= 0) {
-        return;
-      }
-
-      const zoomLevel = chart.get("zoomLevel", MAP_CONFIG.initialView.zoomLevel);
-      const translateX = chart.get("translateX", chart.width() / 2);
-      const translateY = chart.get("translateY", chart.height() / 2);
-      const sizeChanged = !previousSize
-        || previousSize.width !== mapBounds.width
-        || previousSize.height !== mapBounds.height;
-
-      background.style.left = `${mapBounds.left}px`;
-      background.style.top = `${mapBounds.top}px`;
-      background.style.width = `${mapBounds.width}px`;
-      background.style.height = `${mapBounds.height}px`;
-
-      if (!baseView || resetBase || sizeChanged) {
-        baseView = { zoomLevel, translateX, translateY };
-      }
-      previousSize = mapBounds;
-
-      const scale = zoomLevel / baseView.zoomLevel;
-      const offsetX = translateX - baseView.translateX;
-      const offsetY = translateY - baseView.translateY;
-      background.style.transform =
-        `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
-    };
-    root.events.on("frameended", syncBackground);
-    const resizeObserver = new ResizeObserver(() => syncBackground({ resetBase: true }));
-    resizeObserver.observe(chartElement.current);
     const polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
       geoJSON: am5geodata_worldLow,
       exclude: MAP_CONFIG.geography.excludeAntarctica ? ["AQ"] : []
@@ -185,9 +142,7 @@ export function OriginMap({ origins, theme, onOriginSelect }) {
     }));
 
     chart.appear(500, 50);
-
     return () => {
-      resizeObserver.disconnect();
       root.dispose();
     };
   }, [origins, theme]);
@@ -200,13 +155,6 @@ export function OriginMap({ origins, theme, onOriginSelect }) {
         className="map-surface"
         aria-label="コーヒー産地マップ"
       >
-        <img
-          ref={backgroundElement}
-          className="map-background-layer"
-          src={mapBackground}
-          alt=""
-          aria-hidden="true"
-        />
         <div ref={chartElement} className="world-map-chart" />
         {origins.length === 0 && <p className="empty-state">表示できる産地データがありません。</p>}
       </div>

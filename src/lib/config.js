@@ -48,7 +48,7 @@ export const MAP_CONFIG = {
   zoom: {
     minLevel: 1,
     maxLevel: 8,
-    maxPanOut: 0.25
+    maxPanOut: 0
   },
   production: {
     unit: "トン",

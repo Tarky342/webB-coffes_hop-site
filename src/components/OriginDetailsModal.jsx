@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { MAP_CONFIG } from "../lib/config.js";
 import { formatAltitude, formatProduction, hasProductionData } from "../lib/origins.js";
+import { CountryFlag } from "./CountryFlag.jsx";
 
 export function OriginDetailsModal({ origin, onClose }) {
   const closeButton = useRef(null);
@@ -17,7 +18,10 @@ export function OriginDetailsModal({ origin, onClose }) {
       <section className="modal" role="dialog" aria-modal="true" aria-labelledby="origin-title">
         <button ref={closeButton} className="icon-button" onClick={onClose} aria-label="詳細を閉じる">×</button>
         <p className="eyebrow">{origin.nameEn || origin.id}</p>
-        <h2 id="origin-title">{origin.name}</h2>
+        <h2 id="origin-title" className="country-heading">
+          <CountryFlag countryId={origin.id} countryName={origin.name} />
+          <span>{origin.name}</span>
+        </h2>
         <p className="modal-overview">{origin.overview || "この産地の概要は準備中です。"}</p>
         <div className="detail-grid">
           <div><span>地域</span><strong>{origin.region || "情報がないようです :("}</strong></div>

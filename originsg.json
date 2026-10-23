@@ -1,6 +1,7 @@
 {
   "ET": {
     "id": "ET",
+    "flag": "🇪🇹",
     "productionTonnes": 575696,
     "productionYear": 2024,
     "productionEstimated": true,
@@ -134,6 +135,7 @@
   },
   "BR": {
     "id": "BR",
+    "flag": "🇧🇷",
     "productionTonnes": 3387724,
     "productionYear": 2024,
     "productionEstimated": false,
@@ -279,6 +281,7 @@
   },
   "CO": {
     "id": "CO",
+    "flag": "🇨🇴",
     "productionTonnes": 839847,
     "productionYear": 2024,
     "productionEstimated": false,
@@ -378,6 +381,7 @@
   },
   "KE": {
     "id": "KE",
+    "flag": "🇰🇪",
     "productionTonnes": 49500,
     "productionYear": 2024,
     "productionEstimated": false,
@@ -480,6 +484,7 @@
   },
   "ID": {
     "id": "ID",
+    "flag": "🇮🇩",
     "productionTonnes": 807578,
     "productionYear": 2024,
     "productionEstimated": false,
@@ -588,6 +593,7 @@
   },
   "VN": {
     "id": "VN",
+    "flag": "🇻🇳",
     "productionTonnes": 2015289,
     "productionYear": 2024,
     "productionEstimated": false,
@@ -674,6 +680,7 @@
   },
   "GT": {
     "id": "GT",
+    "flag": "🇬🇹",
     "productionTonnes": 224860,
     "productionYear": 2024,
     "productionEstimated": false,
@@ -777,6 +784,7 @@
   },
   "CR": {
     "id": "CR",
+    "flag": "🇨🇷",
     "productionTonnes": 62154,
     "productionYear": 2024,
     "productionEstimated": false,
@@ -888,6 +896,7 @@
   },
   "HN": {
     "id": "HN",
+    "flag": "🇭🇳",
     "productionTonnes": 324015,
     "productionYear": 2024,
     "productionEstimated": false,
@@ -991,6 +1000,7 @@
   },
   "MX": {
     "id": "MX",
+    "flag": "🇲🇽",
     "productionTonnes": 194470,
     "productionYear": 2024,
     "productionEstimated": true,

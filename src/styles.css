@@ -217,19 +217,10 @@ em {
     position: relative;
     overflow: hidden;
     width: 100%;
-    aspect-ratio: 900 / 455;
+    aspect-ratio: 2 / 1;
     min-height: clamp(320px, 42vw, 560px);
     border-radius: 2px;
     background: var(--map-ocean);
-}
-
-.map-background-layer {
-    position: absolute;
-    z-index: 0;
-    object-fit: fill;
-    transform-origin: 0 0;
-    pointer-events: none;
-    user-select: none;
 }
 
 .world-map-chart {
@@ -404,6 +395,19 @@ em {
 .modal h2 {
     margin: 8px 0 16px;
     font: 500 38px "Playfair Display", serif;
+}
+
+.country-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.country-flag {
+    width: 32px;
+    height: 24px;
+    flex: 0 0 auto;
+    object-fit: contain;
 }
 
 .modal-overview {
