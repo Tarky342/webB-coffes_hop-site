@@ -22,10 +22,18 @@ export function OriginDetailsModal({ origin, onClose, onAddToBlend }) {
       fullWidth
       maxWidth="sm"
       aria-labelledby="origin-title"
-      PaperProps={{ sx: { backgroundColor: "var(--panel)", color: "var(--ink)", backgroundImage: "none" } }}
+      slotProps={{
+        paper: {
+          sx: {
+            backgroundColor: "var(--panel)",
+            color: "var(--ink)",
+            backgroundImage: "none"
+          }
+        }
+      }}
     >
       <DialogTitle id="origin-title" sx={{ pb: 1 }}>
-        <Stack direction="row" spacing={1} alignItems="center">
+        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
           <CountryFlag countryId={origin.id} countryName={origin.name} />
           <Typography component="span" variant="h2" sx={{ fontSize: 38 }}>
             {origin.name}
@@ -52,7 +60,13 @@ export function OriginDetailsModal({ origin, onClose, onAddToBlend }) {
           )}
         </Stack>
         {origin.flavorNotes?.length > 0 && (
-          <Stack direction="row" spacing={.75} useFlexGap flexWrap="wrap" aria-label="フレーバーノート">
+          <Stack
+            direction="row"
+            spacing={.75}
+            useFlexGap
+            sx={{ flexWrap: "wrap" }}
+            aria-label="フレーバーノート"
+          >
             {origin.flavorNotes.map((note) => (
               <Chip key={note} label={note} variant="outlined" size="small" sx={{ color: "var(--muted)", borderColor: "var(--line)" }} />
             ))}

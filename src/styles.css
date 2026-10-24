@@ -203,14 +203,14 @@ em {
 }
 
 .map-card {
-    padding: 24px;
+    
     min-width: 0;
     overflow: visible;
 }
 
 .section-label {
     justify-content: space-between;
-    margin-bottom: 18px;
+    
 }
 
 .map-surface {
@@ -227,6 +227,8 @@ em {
     position: absolute;
     z-index: 1;
     inset: 0;
+    width: 100%;
+    height: 100%;
     background: transparent;
     touch-action: none;
 }
@@ -405,7 +407,7 @@ em {
 
 .country-flag {
     width: 32px;
-    height: 24px;
+    height: auto;
     flex: 0 0 auto;
     object-fit: contain;
 }
@@ -652,4 +654,14 @@ em {
         animation-duration: .01ms !important;
         transition-duration: .01ms !important;
     }
+}
+
+/* パッチ */
+main > section > aside > div > div.MuiStack-root.css-jfdv4h-MuiStack-root > div > div > div > div.MuiAutocomplete-endAdornment.css-1uhhrmm-MuiAutocomplete-endAdornment > button > svg {
+    display: none;
+}
+
+#root > main > section > aside > div > div.MuiStack-root.css-jfdv4h-MuiStack-root > div > div > div > span{
+    border:0;
+    background-color: var(--panel);
 }

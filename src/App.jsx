@@ -101,7 +101,6 @@ export default function App() {
         cartQuantity={cartQuantity}
         onThemeToggle={() => setTheme((current) => current === "light" ? "dark" : "light")}
       />
-      {/* <Hero score={score} /> */}
       <section className="content-grid">
         <OriginMap
           origins={origins}

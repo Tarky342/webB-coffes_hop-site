@@ -11,7 +11,7 @@ import {
 
 const MAP_COLORS = {
   light: { land: 0xcbbca9, border: 0x927d69, text: 0x3f342b },
-  dark: { land: 0x4b514c, border: 0x858b80, text: 0xf1e6d8 }
+  dark: { land: 0x774b1c, border: 0x858b80, text: 0xf1e6d8 }
 };
 
 function toAm5Color(value, fallback) {
@@ -58,7 +58,7 @@ export function OriginMap({ origins, theme, onOriginSelect }) {
       boxZoom: "none"
     }));
     chart.series.push(am5map.MapRasterSeries.new(root, {
-      src: mapBackground,
+      // src: mapBackground,
       affectsBounds: true
     }));
 

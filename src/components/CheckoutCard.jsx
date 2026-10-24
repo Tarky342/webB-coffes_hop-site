@@ -4,10 +4,13 @@ import {
   Card,
   CardContent,
   Divider,
+  Autocomplete,
   IconButton,
   Stack,
+  TextField,
   Typography
 } from "@mui/material";
+import { useState } from "react";
 import { APP_CONFIG } from "../lib/config.js";
 import { getBlendPoints, getBlendPrice } from "../lib/blend.js";
 
@@ -19,8 +22,10 @@ export function CheckoutCard({
   onRemove
 }) {
   const items = cartItems.length > 0 ? cartItems : blendItems;
+  const [expanded, setExpanded] = useState(false);
   const points = getBlendPoints(items);
   const total = getBlendPrice(points);
+  const isDropdown = items.length > 4;
   const buttonLabel = {
     transitioning: "ブレンドを準備中…",
     processing: "決済ページを準備中…",
@@ -48,13 +53,81 @@ export function CheckoutCard({
             <Typography variant="body2" sx={{ color: "var(--muted)", py: 1 }}>
               地図から豆を選び、ブレンドに追加してください。
             </Typography>
+          ) : isDropdown ? (
+            <Autocomplete
+              multiple
+              options={items}
+              value={items}
+              limitTags={expanded ? undefined : 4}
+              disableClearable
+              disableCloseOnSelect
+              disabled={checkoutState === "processing" || checkoutState === "transitioning"}
+              getOptionLabel={(item) => item.name || "名称未設定"}
+              onChange={(_, __, reason, details) => {
+                if (reason !== "removeOption" || !details?.option) return;
+                const removedIndex = items.indexOf(details.option);
+                if (removedIndex >= 0) onRemove(removedIndex);
+              }}
+              slotProps={{
+                chip: {
+                  onClick: () => setExpanded(true)
+                },
+                paper: {
+                  sx: {
+                    backgroundColor: "var(--panel)",
+                    color: "var(--ink)"
+                  }
+                },
+                listbox: {
+                  sx: {
+                    "& .MuiAutocomplete-option[aria-selected='true']": {
+                      backgroundColor: "var(--bg)"
+                    },
+                    "& .MuiAutocomplete-option:hover": {
+                      backgroundColor: "var(--line)"
+                    }
+                  }
+                }
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="選択した豆"
+                  size="small"
+                  sx={{
+                    "& .MuiInputLabel-root": { color: "var(--muted)" },
+                    "& .MuiInputLabel-root.Mui-focused": { color: "var(--accent)" },
+                    "& .MuiOutlinedInput-root": {
+                      color: "var(--ink)",
+                      "& fieldset": { borderColor: "var(--line)" },
+                      "&:hover fieldset": { borderColor: "var(--ink)" },
+                      "&.Mui-focused fieldset": { borderColor: "var(--accent)" }
+                    }
+                  }}
+                />
+              )}
+              sx={{
+                "& .MuiAutocomplete-tag": {
+                  color: "var(--ink)",
+                  backgroundColor: "var(--bg)",
+                  border: "1px solid var(--line)"
+                },
+                "& .MuiAutocomplete-popupIndicator, & .MuiAutocomplete-clearIndicator": {
+                  color: "var(--ink)"
+                }
+              }}
+            />
           ) : items.map((item, index) => (
             <Stack
               key={`${item.id}-${index}`}
               direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              sx={{ borderTop: "1px solid var(--line)", pt: 1, gap: 1 }}
+              sx={{
+                borderTop: "1px solid var(--line)",
+                pt: 1,
+                gap: 1,
+                justifyContent: "space-between",
+                alignItems: "center"
+              }}
             >
               <Stack spacing={.25} minWidth={0}>
                 <Typography variant="body2" fontWeight={600}>{item.name}</Typography>
@@ -80,15 +153,15 @@ export function CheckoutCard({
           ))}
         </Stack>
         <Divider sx={{ borderColor: "var(--line)", my: 1.5 }} />
-        <Stack direction="row" justifyContent="space-between" sx={{ py: 1.5 }}>
+        <Stack direction="row" sx={{ py: 1.5, justifyContent: "space-between" }}>
           <Typography variant="body2">{APP_CONFIG.productName}</Typography>
           <Typography variant="body2" fontWeight={600}>{items.length}個</Typography>
         </Stack>
-        <Stack direction="row" justifyContent="space-between" sx={{ py: 1.5, color: "var(--muted)" }}>
+        <Stack direction="row" sx={{ py: 1.5, color: "var(--muted)", justifyContent: "space-between" }}>
           <Typography variant="body2">合計ポイント</Typography>
           <Typography variant="body2" fontWeight={600}>{points} pt</Typography>
         </Stack>
-        <Stack direction="row" justifyContent="space-between" sx={{ borderTop: "1px solid var(--line)", pt: 1.5 }}>
+        <Stack direction="row" sx={{ borderTop: "1px solid var(--line)", pt: 1.5, justifyContent: "space-between" }}>
           <Typography variant="body2">合計</Typography>
           <Typography variant="h2" sx={{ fontSize: 20, color: "var(--accent)" }}>
             ¥{total.toLocaleString()}
